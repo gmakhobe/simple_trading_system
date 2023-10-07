@@ -882,10 +882,12 @@ void historyData()
    MqlRates historyMonths[];
    MqlRates historyWeeks[];
    MqlRates historyDays[];
+   MqlRates historyFourHours[];
    
    ArraySetAsSeries(historyMonths, true);
    ArraySetAsSeries(historyWeeks, true);
    ArraySetAsSeries(historyDays, true);
+   ArraySetAsSeries(historyFourHours, true);
 
    for(int counter = 0; counter < _historyOrders; counter++)
      {
@@ -914,6 +916,11 @@ void historyData()
       string _prevDayDidCurrentTradeOpenInTheBody = onDidCurrentCandleCloseInPreviousCandlesBody(_entryPrice, historyDays[1].open, historyDays[1].close);
       string _prevThreeDaysClosing = onPreviousThreeBarsTrend(historyDays[1].close, historyDays[3].close);
       
+      loadHistoryDataTestVersion(historyFourHours, _time, PERIOD_H4);
+      string _prevFourHoursCandleType = (historyFourHours[1].open < historyFourHours[1].close ? "Bullish" : "Bearish");
+      string _prevFourHoursDidCurrentTradeOpenInTheBody = onDidCurrentCandleCloseInPreviousCandlesBody(_entryPrice, historyFourHours[1].open, historyFourHours[1].close);
+      string _prevThreeFourHoursClosing = onPreviousThreeBarsTrend(historyFourHours[1].close, historyFourHours[3].close);
+      
       fileContents += "  {\r\n";
       fileContents += "     \"Symbol\": \"" + _symbol + "\",\n";
       fileContents += "     \"Type\": \"" + _type + "\",\n";
@@ -932,6 +939,9 @@ void historyData()
       fileContents += "     \"PrevDayCandleType\": \"" + _prevDayCandleType + "\",\n";
       fileContents += "     \"PrevDayDidCurrentTradeOpenInTheBody\": \"" + _prevDayDidCurrentTradeOpenInTheBody + "\",\n";
       fileContents += "     \"PrevThreeDaysClosing\": \"" + _prevThreeDaysClosing + "\",\n";
+      fileContents += "     \"PrevFourHoursCandleType\": \"" + _prevFourHoursCandleType + "\",\n";
+      fileContents += "     \"PrevFourHoursDidCurrentTradeOpenInTheBody\": \"" + _prevFourHoursDidCurrentTradeOpenInTheBody + "\",\n";
+      fileContents += "     \"PrevThreeFourHourssClosing\": \"" + _prevThreeFourHoursClosing + "\",\n";
       fileContents += "  },\n";
      }
 

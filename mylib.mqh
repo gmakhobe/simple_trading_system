@@ -446,7 +446,11 @@ bool loadHistoryDataTestVersion(MqlRates &historyData[], datetime tradeTime, ENU
    }
 
    if (timeFrame == PERIOD_D1) {
-      _fromDate = tradeTime - 432000;
+      _fromDate = tradeTime - 8432000;
+   }
+   
+   if (timeFrame == PERIOD_H4) {
+      _fromDate = tradeTime - 172800;
    }
    
    int copyRatesStatus = CopyRates(Symbol(), timeFrame, _fromDate, tradeTime, historyData);
